@@ -1,0 +1,20 @@
+{
+  "name": "tax-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start:client": "cd client && npm start",
+    "start:server": "cd server && npm start",
+    "start": "concurrently \"npm run start:client\" \"npm run start:server\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  },
+  "devDependencies": {
+    "concurrently": "^6.5.1"
+  }
+}
