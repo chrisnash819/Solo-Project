@@ -11,7 +11,7 @@ app.use(cors());
 app.use(express.json());
 
 
-app.post('/calculate-taxes', locationController.calculateTaxes , (req, res, next) => {
+app.post('/calculate-taxes', locationController.calculateTaxes , locationController.getStateRanking, (req, res, next) => {
     
 
     return res.status(200).json(res.locals.taxData);
