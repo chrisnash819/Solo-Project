@@ -1,5 +1,6 @@
 const stateTaxBurden = require('../taxRates/stateTaxBurden.json');
 const fedIncomeTaxBracket = require('../taxRates/fedIncomeTaxBrackets.json');
+const stateAllocation = require('../taxRates/stateAllocation.json');
 const locationController = {};
 
 
@@ -9,11 +10,13 @@ locationController.calculateTaxes = (req, res, next) => {
         console.log(`Selected State: ${selectedState}, Income: ${income}`);
 
         const selectedStateTaxBurden = parseFloat(stateTaxBurden.find(obj => obj.abbreviation === selectedState)?.rate)/100;
-            
+        const stateName = stateTaxBurden.find(obj => obj.abbreviation === selectedState)?.state;   
         const userIncomeBracket = parseFloat(fedIncomeTaxBracket.find(obj => income >= obj.income[0] && income < obj.income[1])?.bracket)/100;
         const stateTaxesPaid = parseFloat((income * selectedStateTaxBurden).toFixed(2));
         const fedTaxesPaid = parseFloat((income * userIncomeBracket).toFixed(2));
         const incomeAfterTax = income - stateTaxesPaid - fedTaxesPaid;
+
+        const selectedStateAllocation = stateAllocation.find(obj=> obj.name === stateName);
 
         const allocationData = {
             federal: [
@@ -31,11 +34,18 @@ locationController.calculateTaxes = (req, res, next) => {
             ],
             stateAndLocal: [
                 
-                { name: 'K-12 Education', value: 15 },
-                { name: 'Higher Education', value: 34 },
-                { name: 'Healthcare', value: 34 },
-                { name: 'Corrections', value: 34 },
-                { name: 'Social Programs', value: 34 },
+                { name: 'Education', value: (parseFloat(selectedStateAllocation['Education'])/100) * stateTaxesPaid },
+                { name: 'Public Welfare', value: (parseFloat(selectedStateAllocation['Public Welfare'])/100) * stateTaxesPaid },
+                { name: 'Hospitals', value: (parseFloat(selectedStateAllocation['Hospitals'])/100) * stateTaxesPaid },
+                { name: 'Health', value: (parseFloat(selectedStateAllocation['Health'])/100) * stateTaxesPaid },
+                { name: 'Highways', value: (parseFloat(selectedStateAllocation['Highways'])/100) * stateTaxesPaid },
+                { name: 'Police', value: (parseFloat(selectedStateAllocation['Police'])/100) * stateTaxesPaid },
+                { name: 'Corrections', value: (parseFloat(selectedStateAllocation['Corrections'])/100) * stateTaxesPaid },
+                { name: 'Natural Resources', value: (parseFloat(selectedStateAllocation['Natural Resources'])/100) * stateTaxesPaid },
+                { name: 'Parks and Rec', value: (parseFloat(selectedStateAllocation['Parks and Rec'])/100) * stateTaxesPaid },
+                { name: 'Governmental Administration', value: (parseFloat(selectedStateAllocation['Governmental Administration'])/100) * stateTaxesPaid },
+                { name: 'Interest', value: (parseFloat(selectedStateAllocation['Interest'])/100) * stateTaxesPaid },
+                { name: 'Other', value: (parseFloat(selectedStateAllocation['Other'])/100) * stateTaxesPaid },
             ],
             percentTaxed: [
                 {name: 'Income After Tax', value: incomeAfterTax},

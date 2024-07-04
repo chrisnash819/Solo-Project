@@ -1,0 +1,52 @@
+[
+    {
+        "field": "Education",
+        "avg": 32.51
+      },
+      {
+        "field": "Public Welfare",
+        "avg": 33.22
+      },
+      {
+        "field": "Hospitals",
+        "avg": 3.96
+      },
+      {
+        "field": "Health",
+        "avg": 3.62
+      },
+      {
+        "field": "Highways",
+        "avg": 6.49
+      },
+      {
+        "field": "Police",
+        "avg": 0.89
+      },
+      {
+        "field": "Corrections",
+        "avg": 2.25
+      },
+      {
+        "field": "Natural Resources",
+        "avg": 1.42
+      },
+      {
+        "field": "Parks and Rec",
+        "avg": 0.34
+      },
+      {
+        "field": "Governmental Administration",
+        "avg": 4.16
+      },
+      {
+        "field": "Interest",
+        "avg": 1.31
+      },
+      {
+        "field": "Other",
+        "avg": 9.84
+      }
+
+
+]
