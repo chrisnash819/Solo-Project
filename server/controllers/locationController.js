@@ -40,7 +40,7 @@ locationController.calculateTaxes = (req, res, next) => {
                 { name: 'Medicare', value: fedTaxesPaid * (14/100)  },
                 { name: 'Net Interest', value: fedTaxesPaid * (13/100)  },
                 { name: 'Health', value: fedTaxesPaid * (13/100)  },
-                { name: 'National Defense', value: 13 },
+                { name: 'National Defense', value: fedTaxesPaid * (13/100) },
                 { name: 'Income Security', value: fedTaxesPaid * (11/100)  },
                 { name: 'Veterans Benefits and Services', value: fedTaxesPaid * (5/100)  },
                 { name: 'Education, Training, Employment, and Social Services', value: fedTaxesPaid * (3/100)  },
@@ -55,7 +55,6 @@ locationController.calculateTaxes = (req, res, next) => {
                 { name: 'Hospitals', value: (parseFloat(hospitals)/100) * stateTaxesPaid },
                 { name: 'Health', value: (parseFloat(health)/100) * stateTaxesPaid },
                 { name: 'Highways', value: (parseFloat(highways)/100) * stateTaxesPaid },
-                { name: 'Police', value: (parseFloat(police)/100) * stateTaxesPaid },
                 { name: 'Corrections', value: (parseFloat(corrections)/100) * stateTaxesPaid },
                 { name: 'Natural Resources', value: (parseFloat(naturalResources)/100) * stateTaxesPaid },
                 { name: 'Governmental Administration', value: (parseFloat(governmentalAdministration)/100) * stateTaxesPaid },
@@ -119,11 +118,6 @@ locationController.getStateRanking = (req, res, next) => {
                 name: 'Highways', 
                 percentRevenue: stateNumbers[4], 
                 natAvgPercentRevenue: averageState.find(obj => obj.field === 'Highways')?.avg 
-            },
-            { 
-                name: 'Police', 
-                percentRevenue: stateNumbers[5], 
-                natAvgPercentRevenue: averageState.find(obj => obj.field === 'Police')?.avg
             },
             { 
                 name: 'Corrections', 

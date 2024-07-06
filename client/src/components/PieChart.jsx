@@ -1,7 +1,19 @@
 import React from 'react';
 import {PieChart, Pie, Cell, Tooltip, Legend} from 'recharts';
 
-const COLORS = ['#C0392B', '#8E44AD', '#2471A3', '#229954'];
+const COLORS = [
+  '#C0392B', // crimson
+  '#8E44AD', // purple
+  '#2471A3', // blue
+  '#229954', // green
+  '#E74C3C', // lighter crimson
+  '#c76ded', // darker purple
+  '#4b83f2', // lighter blue
+  '#117319', // lighter green
+  '#851208', // dark crimson
+  '#d96111', // dark purple
+  '#ed85da'  // dark blue
+];
 
 const formatValue = (value, total) => {
   const percentage = ((value / total) * 100).toFixed(2);
@@ -31,12 +43,12 @@ function TaxPieChart({data})  {
     return (
       <>
       {/* Income Pie Chart */}
-      <h2>Income</h2>
+      <h2 className="centered-title">Income</h2>
       <PieChart width={1200} height={350}>
         <Pie
           data={allocationData.percentTaxed}
           dataKey="value"
-          cx={600}
+          cx={750}
           cy={150}
           outerRadius={100}
           label={({ value }) => formatValue(value, totalIncome)}
@@ -47,16 +59,16 @@ function TaxPieChart({data})  {
           ))}
         </Pie>
         <Tooltip content={<CustomTooltip />} />
-        <Legend />
+        <Legend align="center"/>
       </PieChart>
 
       {/* Federal Fund Allocation Pie Chart */}
-      <h2>Federal Fund Allocation</h2>
+      <h2 className="centered-title">Federal Fund Allocation</h2>
       <PieChart width={1200} height={400}>
         <Pie
           data={allocationData.federal}
           dataKey="value"
-          cx={600}
+          cx={750}
           cy={150}
           outerRadius={120}
           labelLine
@@ -71,12 +83,12 @@ function TaxPieChart({data})  {
       </PieChart>
 
       {/* State Fund Allocation Pie Chart */}
-      <h2>State Fund Allocation</h2>
+      <h2 className="centered-title">State Fund Allocation</h2>
       <PieChart width={1200} height={400}>
         <Pie
           data={allocationData.stateAndLocal}
           dataKey="value"
-          cx={600}
+          cx={750}
           cy={150}
           outerRadius={120}
           labelLine
