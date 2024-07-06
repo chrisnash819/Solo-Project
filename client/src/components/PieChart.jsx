@@ -8,6 +8,19 @@ const formatValue = (value, total) => {
   return `$${value.toLocaleString()} (${percentage}%)`;
 };
 
+const CustomTooltip = ({ active, payload }) => {
+  if (active && payload && payload.length) {
+    const { name, value } = payload[0];
+    return (
+      <div className="custom-tooltip" style={{ backgroundColor: '#fff', padding: '10px', border: '1px solid #ccc' }}>
+        <p className="label">{`${name} : $${value.toLocaleString()}`}</p>
+      </div>
+    );
+  }
+
+  return null;
+};
+
 const renderLabel = ({ name }) => name;
 
 function TaxPieChart({data})  {
@@ -19,13 +32,13 @@ function TaxPieChart({data})  {
       <>
       {/* Income Pie Chart */}
       <h2>Income</h2>
-      <PieChart width={600} height={300}>
+      <PieChart width={1200} height={350}>
         <Pie
           data={allocationData.percentTaxed}
           dataKey="value"
-          cx={300}
+          cx={600}
           cy={150}
-          outerRadius={60}
+          outerRadius={100}
           label={({ value }) => formatValue(value, totalIncome)}
           fill="#8884d8"
         >
@@ -33,19 +46,19 @@ function TaxPieChart({data})  {
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
         </Pie>
-        <Tooltip />
+        <Tooltip content={<CustomTooltip />} />
         <Legend />
       </PieChart>
 
       {/* Federal Fund Allocation Pie Chart */}
       <h2>Federal Fund Allocation</h2>
-      <PieChart width={600} height={400}>
+      <PieChart width={1200} height={400}>
         <Pie
           data={allocationData.federal}
           dataKey="value"
-          cx={300}
+          cx={600}
           cy={150}
-          outerRadius={60}
+          outerRadius={120}
           labelLine
           label={renderLabel}
           fill="#8884d8"
@@ -54,19 +67,18 @@ function TaxPieChart({data})  {
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
         </Pie>
-        <Tooltip />
-        <Legend />
+        <Tooltip content={<CustomTooltip />} />
       </PieChart>
 
       {/* State Fund Allocation Pie Chart */}
       <h2>State Fund Allocation</h2>
-      <PieChart width={600} height={300}>
+      <PieChart width={1200} height={400}>
         <Pie
           data={allocationData.stateAndLocal}
           dataKey="value"
-          cx={300}
+          cx={600}
           cy={150}
-          outerRadius={60}
+          outerRadius={120}
           labelLine
           label={renderLabel}
           fill="#82ca9d"
@@ -75,8 +87,7 @@ function TaxPieChart({data})  {
             <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
           ))}
         </Pie>
-        <Tooltip />
-        <Legend />
+        <Tooltip content={<CustomTooltip />} />
       </PieChart>
     </>
   );
